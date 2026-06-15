@@ -36,9 +36,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submittedData: any = null;
 
-  // Egyptian Mobile Numbers: Starts with 010, 011, 012, or 015, followed by 8 digits.
   mobilePattern = /^01[0125][0-9]{8}$/;
-  // standard email pattern
   emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   constructor(private fb: FormBuilder) { }
@@ -84,23 +82,17 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      // Clone the submitted data
       this.submittedData = { ...this.registerForm.value };
 
-      // Save to localStorage (SSR-safe check)
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem('registeredUser', JSON.stringify(this.submittedData));
       }
 
-      // Reset the form values
       this.registerForm.reset();
-
-      // Reset FormArray controls to default size of 1
       while (this.mobiles.length > 1) {
         this.mobiles.removeAt(1);
       }
 
-      // Explicitly mark control statuses as clean
       this.registerForm.markAsPristine();
       this.registerForm.markAsUntouched();
     } else {

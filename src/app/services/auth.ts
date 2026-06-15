@@ -4,7 +4,6 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  // WritableSignal manages isLoggedIn reactively
   isLoggedIn = signal<boolean>(false);
 
   constructor() {
