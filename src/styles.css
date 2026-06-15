@@ -1,3 +1,179 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
-@import 'tailwindcss';
+/* Global Styles */
+body {
+  font-family: 'Outfit', sans-serif;
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(15, 23, 42, 1) 100%), #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Gradient text & buttons */
+.gradient-text {
+  background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-gradient-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient-primary:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  transform: translateY(-1px);
+  color: white;
+}
+
+.btn-gradient-primary:active {
+  transform: translateY(0);
+}
+
+/* Custom form inputs for Dark Theme */
+.form-control, .form-select {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #f8fafc !important;
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: all 0.25s ease-in-out;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  color: #ffffff !important;
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Input group icons integration */
+.input-group-text {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #94a3b8 !important;
+  border-right: none !important;
+  border-radius: 8px 0 0 8px;
+}
+
+.input-group > .form-control {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-left: none !important;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: #818cf8 !important;
+}
+
+.input-group:has(.is-invalid) .input-group-text {
+  border-color: #f87171 !important;
+}
+
+.input-group:has(.is-valid) .input-group-text {
+  border-color: #34d399 !important;
+}
+
+/* Validation styling overrides */
+.form-control.is-invalid, .form-select.is-invalid {
+  border-color: #f87171 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f87171'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f87171' stroke='none'/%3e%3c/svg%3e") !important;
+}
+
+.form-control.is-valid, .form-select.is-valid {
+  border-color: #34d399 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2334d399' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") !important;
+}
+
+.invalid-feedback {
+  color: #f87171 !important;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+.valid-feedback {
+  color: #34d399 !important;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+/* Navbar Customization */
+.custom-navbar {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-link {
+  color: #94a3b8 !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #ffffff !important;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  border-radius: 2px;
+}
+
+/* Card lists & details */
+.detail-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 0;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+/* Angular Component Host styling to prevent flex shrinking */
+app-register, app-login, app-home {
+  display: block;
+  width: 100%;
+}
+
+/* Custom CSS utility classes to support user options */
+.grow {
+  flex-grow: 1;
+}

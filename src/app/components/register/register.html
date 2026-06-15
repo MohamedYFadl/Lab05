@@ -1,0 +1,211 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+      <!-- Main Registration Card -->
+      <div class="card glass-card p-4 p-md-5">
+        <div class="text-center mb-4">
+          <div class="d-inline-flex align-items-center justify-content-center bg-indigo-subtle rounded-circle p-3 mb-2"
+            style="background: rgba(99, 102, 241, 0.15); width: 60px; height: 60px;">
+            <i class="bi bi-person-plus text-indigo fs-2" style="color: #818cf8;"></i>
+          </div>
+          <h2 class="card-title fw-bold gradient-text">Create an Account</h2>
+          <p class="text-secondary small">Register now to explore our system features</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="fullName" class="form-label text-light fw-medium">Full Name</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-person"></i></span>
+              <input type="text" id="fullName" formControlName="fullName" class="form-control"
+                [class.is-invalid]="registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)"
+                [class.is-valid]="registerForm.get('fullName')?.valid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)"
+                placeholder="John Doe" />
+            </div>
+            @if (registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty ||
+            registerForm.get('fullName')?.touched)) {
+            <div class="invalid-feedback d-block">
+              @if (registerForm.get('fullName')?.errors?.['required']) {
+              Full Name is required.
+              }
+              @if (registerForm.get('fullName')?.errors?.['minlength']) {
+              Full Name must be at least 5 characters long.
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label text-light fw-medium">Email Address</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                  class="bi bi-envelope"></i></span>
+              <input type="email" id="email" formControlName="email" class="form-control"
+                [class.is-invalid]="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+                [class.is-valid]="registerForm.get('email')?.valid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+                placeholder="john@example.com" />
+            </div>
+            @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty ||
+            registerForm.get('email')?.touched)) {
+            <div class="invalid-feedback d-block">
+              @if (registerForm.get('email')?.errors?.['required']) {
+              Email is required.
+              }
+              @if (registerForm.get('email')?.errors?.['email'] || registerForm.get('email')?.errors?.['pattern']) {
+              Please enter a valid email address (e.g., john@example.com).
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Mobile Numbers FormArray -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label text-light fw-medium mb-0">Mobile Numbers</label>
+              <button type="button" class="btn btn-sm btn-outline-indigo"
+                style="color: #a5b4fc; border-color: rgba(99, 102, 241, 0.4);" (click)="addMobile()">
+                <i class="bi bi-plus-circle me-1"></i> Add Mobile
+              </button>
+            </div>
+
+            <div formArrayName="mobiles">
+              @for (mobile of mobiles.controls; track $index) {
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                      class="bi bi-telephone"></i></span>
+                  <input type="text" [formControlName]="$index" class="form-control"
+                    [class.is-invalid]="mobile.invalid && (mobile.dirty || mobile.touched)"
+                    [class.is-valid]="mobile.valid && (mobile.dirty || mobile.touched)"
+                    placeholder="e.g. 01012345678" />
+                  @if ($index > 0) {
+                  <button class="btn btn-outline-danger px-3" type="button" (click)="removeMobile($index)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  }
+                </div>
+                @if (mobile.invalid && (mobile.dirty || mobile.touched)) {
+                <div class="invalid-feedback d-block">
+                  @if (mobile.errors?.['required']) {
+                  Mobile number is required.
+                  }
+                  @if (mobile.errors?.['pattern']) {
+                  Must be a valid Egyptian mobile number (11 digits, starts with 010, 011, 012, or 015).
+                  }
+                </div>
+                }
+              </div>
+              }
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="password" class="form-label text-light fw-medium">Password</label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                    class="bi bi-shield-lock"></i></span>
+                <input type="password" id="password" formControlName="password" class="form-control"
+                  [class.is-invalid]="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
+                  [class.is-valid]="registerForm.get('password')?.valid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
+                  placeholder="Min 6 chars" />
+              </div>
+              @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty ||
+              registerForm.get('password')?.touched)) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('password')?.errors?.['required']) {
+                Password is required.
+                }
+                @if (registerForm.get('password')?.errors?.['minlength']) {
+                Password must be at least 6 characters.
+                }
+              </div>
+              }
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="col-md-6 mb-3">
+              <label for="confirmPassword" class="form-label text-light fw-medium">Confirm Password</label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                    class="bi bi-shield-check"></i></span>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+                  [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)"
+                  [class.is-valid]="registerForm.get('confirmPassword')?.valid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)"
+                  placeholder="Repeat password" />
+              </div>
+              @if (registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty ||
+              registerForm.get('confirmPassword')?.touched)) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+                Confirm Password is required.
+                }
+                @if (registerForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
+                Passwords do not match.
+                }
+              </div>
+              }
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-3 mt-4">
+            <button type="submit" class="btn btn-gradient-primary grow py-2" [disabled]="registerForm.invalid">
+              <i class="bi bi-check2-circle me-1"></i> Register
+            </button>
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onReset()">
+              <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+            </button>
+          </div>
+        </form>
+
+        <div class="text-center mt-4 pt-3 border-top border-secondary-subtle">
+          <span class="text-secondary small">Already have an account? </span>
+          <a routerLink="/login" class="text-indigo text-decoration-none fw-semibold" style="color: #a5b4fc;">Login
+            here</a>
+        </div>
+      </div>
+
+      <!-- Registration Submitted Data Bootstrap Card -->
+      @if (submittedData) {
+      <div class="card glass-card mt-4 border-success animate-fade-in"
+        style="border-color: rgba(52, 211, 153, 0.4) !important;">
+        <div class="card-header bg-success bg-opacity-25 text-success py-3 d-flex align-items-center">
+          <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+          <h5 class="mb-0 fw-bold">Registration Data Submitted Successfully!</h5>
+        </div>
+        <div class="card-body">
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Full Name</span>
+            <span class="text-light fw-medium">{{ submittedData.fullName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Email Address</span>
+            <span class="text-light fw-medium">{{ submittedData.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="text-secondary small d-block mb-1">Mobile Numbers</span>
+            @for (mobileNum of submittedData.mobiles; track mobileNum) {
+            <div class="d-flex align-items-center text-light mb-1">
+              <i class="bi bi-telephone-fill text-indigo me-2 small" style="color: #818cf8;"></i>
+              <span>{{ mobileNum }}</span>
+            </div>
+            }
+          </div>
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Password (Encrypted Signature)</span>
+            <code
+              class="text-warning-emphasis bg-warning bg-opacity-10 px-2 py-1 rounded fs-7">******** (Protected)</code>
+          </div>
+        </div>
+      </div>
+      }
+
+    </div>
+  </div>
+</div>

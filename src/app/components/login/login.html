@@ -1,0 +1,118 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-5">
+
+      <!-- Main Login Card -->
+      <div class="card glass-card p-4 p-md-5">
+        <div class="text-center mb-4">
+          <div class="d-inline-flex align-items-center justify-content-center bg-indigo-subtle rounded-circle p-3 mb-2"
+            style="background: rgba(99, 102, 241, 0.15); width: 60px; height: 60px;">
+            <i class="bi bi-shield-lock text-indigo fs-2" style="color: #818cf8;"></i>
+          </div>
+          <h2 class="card-title fw-bold gradient-text">Welcome Back</h2>
+          <p class="text-secondary small">Please enter your credentials to login</p>
+        </div>
+
+        <!-- Credentials Error Alert -->
+        @if (loginError) {
+        <div class="alert alert-danger bg-danger bg-opacity-10 border-danger-subtle text-danger p-3 mb-4 rounded d-flex align-items-center" role="alert" style="border-color: rgba(248, 113, 113, 0.3) !important;">
+          <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+          <div>Invalid email or password. Verify credentials or register first.</div>
+        </div>
+        }
+
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+
+          <!-- Email Input -->
+          <div class="mb-3">
+            <label for="email" class="form-label text-light fw-medium">Email Address</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                  class="bi bi-envelope"></i></span>
+              <input type="email" id="email" name="email" class="form-control" [(ngModel)]="loginData.email"
+                #emailInput="ngModel" required email
+                [class.is-invalid]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                [class.is-valid]="emailInput.valid && (emailInput.dirty || emailInput.touched)"
+                placeholder="john@example.com" />
+            </div>
+            @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+            <div class="invalid-feedback d-block">
+              @if (emailInput.errors?.['required']) {
+              Email is required.
+              }
+              @if (emailInput.errors?.['email']) {
+              Please enter a valid email address.
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Password Input -->
+          <div class="mb-4">
+            <label for="password" class="form-label text-light fw-medium">Password</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
+              <input type="password" id="password" name="password" class="form-control" [(ngModel)]="loginData.password"
+                #passwordInput="ngModel" required minlength="6"
+                [class.is-invalid]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+                [class.is-valid]="passwordInput.valid && (passwordInput.dirty || passwordInput.touched)"
+                placeholder="Enter your password" />
+            </div>
+            @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) {
+            <div class="invalid-feedback d-block">
+              @if (passwordInput.errors?.['required']) {
+              Password is required.
+              }
+              @if (passwordInput.errors?.['minlength']) {
+              Password must be at least 6 characters long.
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-gradient-primary grow py-2" [disabled]="loginForm.invalid">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Login
+            </button>
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onReset(loginForm)">
+              <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+            </button>
+          </div>
+        </form>
+
+        <div class="text-center mt-4 pt-3 border-top border-secondary-subtle">
+          <span class="text-secondary small">Don't have an account? </span>
+          <a routerLink="/register" class="text-indigo text-decoration-none fw-semibold"
+            style="color: #a5b4fc;">Register here</a>
+        </div>
+      </div>
+
+      <!-- Login Submitted Data Bootstrap Card -->
+      @if (submittedData) {
+      <div class="card glass-card mt-4 border-success animate-fade-in"
+        style="border-color: rgba(52, 211, 153, 0.4) !important;">
+        <div class="card-header bg-success bg-opacity-25 text-success py-3 d-flex align-items-center">
+          <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+          <h5 class="mb-0 fw-bold">Login Successful! Welcome Back!</h5>
+        </div>
+        <div class="card-body">
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Authorized Full Name</span>
+            <span class="text-light fw-medium">{{ submittedData.fullName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Email Address</span>
+            <span class="text-light fw-medium">{{ submittedData.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="text-secondary small d-block">Session Status</span>
+            <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50">Active Session</span>
+          </div>
+        </div>
+      </div>
+      }
+
+    </div>
+  </div>
+</div>
