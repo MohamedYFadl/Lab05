@@ -1,0 +1,112 @@
+<div class="container py-5 animate-fade-in">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+
+      <!-- Profile Dashboard Card -->
+      <div class="card glass-card p-4 p-md-5">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between border-bottom border-secondary-subtle pb-4 mb-4">
+          <div class="d-flex align-items-center mb-3 mb-md-0 flex-column flex-md-row text-center text-md-start">
+            <div class="me-0 me-md-4 mb-3 mb-md-0 position-relative">
+              @if (authService.currentUser()?.image) {
+                <img [src]="authService.currentUser()?.image" 
+                  alt="Avatar" 
+                  class="rounded-circle border border-indigo p-1" 
+                  style="width: 80px; height: 80px; object-fit: cover; border-color: rgba(99, 102, 241, 0.5) !important;" />
+              } @else {
+                <div class="bg-indigo-subtle rounded-circle p-3 d-flex align-items-center justify-content-center"
+                  style="background: rgba(99, 102, 241, 0.15); width: 80px; height: 80px;">
+                  <i class="bi bi-person-circle text-indigo fs-1" style="color: #818cf8;"></i>
+                </div>
+              }
+            </div>
+            <div>
+              <h1 class="h2 fw-bold mb-1 text-light">
+                {{ authService.currentUser()?.firstName }} {{ authService.currentUser()?.lastName }}
+              </h1>
+              <span class="text-secondary small">
+                Logged in as <code class="text-indigo fw-semibold" style="color: #a5b4fc;">@{{ authService.currentUser()?.username }}</code>
+              </span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-danger px-4 py-2" (click)="onLogout()">
+            <i class="bi bi-box-arrow-left me-1"></i> Logout
+          </button>
+        </div>
+
+        @if (authService.currentUser()) {
+        <div class="row g-4">
+          
+          <!-- Left Info Column -->
+          <div class="col-md-6">
+            <h4 class="h5 text-indigo mb-3" style="color: #a5b4fc;">
+              <i class="bi bi-person-badge-fill me-2"></i> Account Details
+            </h4>
+            <div class="card bg-dark bg-opacity-25 border-secondary border-opacity-25 rounded-3 p-3">
+              <div class="detail-item mb-3">
+                <span class="text-secondary small d-block">First Name</span>
+                <span class="text-light fw-semibold fs-5">{{ authService.currentUser()?.firstName }}</span>
+              </div>
+              <div class="detail-item mb-3">
+                <span class="text-secondary small d-block">Last Name</span>
+                <span class="text-light fw-semibold fs-5">{{ authService.currentUser()?.lastName }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="text-secondary small d-block">Gender</span>
+                <span class="text-light text-capitalize">{{ authService.currentUser()?.gender }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Info Column -->
+          <div class="col-md-6">
+            <h4 class="h5 text-indigo mb-3" style="color: #a5b4fc;">
+              <i class="bi bi-envelope-fill me-2"></i> Contact Information
+            </h4>
+            <div class="card bg-dark bg-opacity-25 border-secondary border-opacity-25 rounded-3 p-3">
+              <div class="detail-item mb-3">
+                <span class="text-secondary small d-block">Email Address</span>
+                <span class="text-light fw-medium">{{ authService.currentUser()?.email }}</span>
+              </div>
+              <div class="detail-item mb-3">
+                <span class="text-secondary small d-block">User ID</span>
+                <span class="text-light">#{{ authService.currentUser()?.id }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="text-secondary small d-block">Status</span>
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20">
+                  <i class="bi bi-shield-check me-1"></i> Authenticated Session
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        } @else {
+        <div class="text-center py-5">
+          <div class="spinner-border text-indigo mb-3" role="status" style="color: #818cf8;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="text-secondary">Loading profile details...</p>
+        </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

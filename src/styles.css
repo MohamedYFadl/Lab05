@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'ngx-toastr/toastr';
 
 /* Global Styles */
 body {
@@ -168,7 +169,7 @@ body {
 }
 
 /* Angular Component Host styling to prevent flex shrinking */
-app-register, app-login, app-home {
+app-register, app-login, app-profile, app-products, app-search-products {
   display: block;
   width: 100%;
 }

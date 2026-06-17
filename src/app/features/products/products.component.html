@@ -1,0 +1,136 @@
+<div class="container py-5">
+
+  <!-- Header Section -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold gradient-text display-4 mb-2">Explore Our Products</h1>
+    <p class="text-secondary col-md-8 mx-auto">
+      Browse our top curated selection of high-quality items fetched directly from our cloud database.
+    </p>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (skele of [1, 2, 3, 4, 5, 6]; track skele) {
+    <div class="col">
+      <div class="card glass-card h-100 border-0 overflow-hidden">
+        <div style="height: 220px; background: rgba(255,255,255,0.05); animation: pulse 1.5s infinite ease-in-out;">
+        </div>
+        <div class="card-body p-4">
+          <div class="bg-secondary bg-opacity-25 rounded mb-2"
+            style="width: 30%; height: 16px; animation: pulse 1.5s infinite ease-in-out;"></div>
+          <div class="bg-secondary bg-opacity-25 rounded mb-3"
+            style="width: 80%; height: 24px; animation: pulse 1.5s infinite ease-in-out;"></div>
+          <div class="bg-secondary bg-opacity-25 rounded mb-2"
+            style="width: 100%; height: 14px; animation: pulse 1.5s infinite ease-in-out;"></div>
+          <div class="bg-secondary bg-opacity-25 rounded mb-4"
+            style="width: 90%; height: 14px; animation: pulse 1.5s infinite ease-in-out;"></div>
+          <div class="d-flex justify-content-between">
+            <div class="bg-secondary bg-opacity-25 rounded"
+              style="width: 25%; height: 20px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            <div class="bg-secondary bg-opacity-25 rounded"
+              style="width: 20%; height: 20px; animation: pulse 1.5s infinite ease-in-out;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <!-- Products Grid -->
+  @if (products.length > 0) {
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (product of products; track product.id) {
+    <div class="col">
+      <div class="card glass-card h-100 border-0 d-flex flex-column">
+
+        <!-- Image -->
+        <div class="product-img-container" style="height: 220px;">
+          <img [src]="product.thumbnail" class="w-100 h-100 object-fit-cover" [alt]="product.title" loading="lazy" />
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body p-4 d-flex flex-column grow">
+
+          <!-- Category & ID -->
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span
+              class="badge bg-indigo bg-opacity-10 text-indigo border border-indigo border-opacity-20 text-uppercase fs-8 py-1 px-2"
+              style="color: #a5b4fc; background: rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.3) !important;">
+              {{ product.category }}
+            </span>
+            <span class="text-secondary fs-8">ID: #{{ product.id }}</span>
+          </div>
+
+          <!-- Title -->
+          <h5 class="card-title text-light fw-bold mb-2">{{ product.title }}</h5>
+
+          <!-- Description -->
+          <p class="card-text text-secondary small text-truncate-3 mb-4">
+            {{ product.description }}
+          </p>
+
+          <!-- Bottom Stats -->
+          <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+            <div>
+              <span class="text-secondary small d-block">Price</span>
+              <span class="fs-4 fw-bold text-success" style="color: #34d399 !important;">${{ product.price }}</span>
+            </div>
+            <div class="text-end">
+              <span class="text-secondary small d-block">Rating</span>
+              <span
+                class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-20 py-1 px-2"
+                style="color: #fbbf24 !important; border-color: rgba(251, 191, 36, 0.3) !important; background: rgba(251, 191, 36, 0.1);">
+                <i class="bi bi-star-fill me-1 small"></i>{{ product.rating }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hover Details / Action Footer -->
+        <div class="card-footer px-4 py-3 d-flex align-items-center justify-content-between">
+          <span class="text-secondary small">
+            @if (product.stock && product.stock > 0) {
+            <i class="bi bi-check-circle-fill text-success me-1"></i> In Stock ({{ product.stock }})
+            @} @else {
+            <i class="bi bi-x-circle-fill text-danger me-1"></i> Out of Stock
+            }
+          </span>
+          <button class="btn btn-sm btn-gradient-primary px-3 py-1">
+            <i class="bi bi-cart-plus me-1"></i> Buy
+          </button>
+        </div>
+
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <!-- Empty State -->
+  <div class="text-center py-5 card glass-card col-md-8 mx-auto">
+    <div class="mb-3">
+      <i class="bi bi-inbox text-secondary display-3"></i>
+    </div>
+    <h3 class="text-light fw-semibold">No products found</h3>
+    <p class="text-secondary">Please check again later.</p>
+  </div>
+  }
+  }
+
+</div>
+
+<!-- Styles for Pulse Animation -->
+<style>
+  @keyframes pulse {
+
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>

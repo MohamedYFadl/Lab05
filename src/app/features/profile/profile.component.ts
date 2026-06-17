@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { AuthService } from './core/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-profile',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [CommonModule],
+  templateUrl: './profile.component.html'
 })
-export class App {
+export class ProfileComponent {
   protected authService = inject(AuthService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-  logout(): void {
+  onLogout(): void {
     this.authService.logout();
     this.toastr.success('You have logged out successfully.', 'Logged Out');
     this.router.navigate(['/login']);

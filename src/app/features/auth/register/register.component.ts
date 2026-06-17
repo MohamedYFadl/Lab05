@@ -30,7 +30,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './register.html'
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;

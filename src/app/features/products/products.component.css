@@ -1,0 +1,33 @@
+.text-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5em; /* standard height for 3 lines of outfit font */
+}
+
+.product-img-container {
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(15, 23, 42, 0.4);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.product-img-container img {
+  transition: transform 0.5s ease;
+}
+
+.glass-card:hover .product-img-container img {
+  transform: scale(1.05);
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+.card-footer {
+  background: rgba(15, 23, 42, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
